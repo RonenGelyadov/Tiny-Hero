@@ -38,8 +38,6 @@ public class PlayerController : Singleton<PlayerController>
 
     void PlayerInput() {
         moveDir = playerControls.Movement.Move.ReadValue<Vector2>();
-
-        
     }
 
     private void Move() {
