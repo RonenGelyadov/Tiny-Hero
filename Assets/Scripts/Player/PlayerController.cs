@@ -5,13 +5,15 @@ public class PlayerController : Singleton<PlayerController>
 {
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float jumpForce = 3f;
+    [SerializeField] private LayerMask groundLayer;
     private PlayerControls playerControls;
     private float moveDir;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
     private Animator animator;
 
-    public bool IsGrounded { get; private set; }
+    private float rayLength = 0.35f;
+    bool isGrounded;
     
     protected override void Awake() {
         base.Awake();
@@ -32,13 +34,14 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Start() {
         playerControls.Movement.Jump.performed += _ => Jump();
-        IsGrounded = false;
+        isGrounded = false;
     }
 
     private void Update() {
         PlayerInput();
         ChangeFaceDirection();
         HandleAnimations();
+        CheckIfGrounded();
     }
 
     private void FixedUpdate() {
@@ -64,19 +67,30 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     private void Jump() {
-        if (IsGrounded) {
-            IsGrounded = false;
+        if (isGrounded) {
+            isGrounded = false;
             Vector2 jumpDir = Vector2.up * jumpForce;
             rb.AddForce(jumpDir, ForceMode2D.Impulse);
         }
     }
 
-    public void SetIsGrounded(bool isGrounded) {
-        this.IsGrounded = isGrounded;
-    }
-
     private void HandleAnimations() {
-        animator.SetBool("IsGrounded", IsGrounded);
+        animator.SetBool("IsGrounded", isGrounded);
         animator.SetFloat("MoveY", rb.linearVelocityY);
     }
+
+    private void CheckIfGrounded() {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, rayLength, groundLayer);
+
+        if (hit) {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+                isGrounded = true;
+            } else {
+                isGrounded = false;
+            }
+        } else {
+            isGrounded = false;
+        }
+    }
+
 }

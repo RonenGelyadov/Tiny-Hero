@@ -1,11 +1,16 @@
-using Unity.Cinemachine;
 using UnityEngine;
+using Unity.Cinemachine;
 
-public class CameraController : MonoBehaviour
+public class CameraController : Singleton<CameraController>
 {
-	[SerializeField] CinemachineCamera cinemaCam;
+	CinemachineCamera cinemaCam;
 
     private void Start() {
-        cinemaCam.Follow = PlayerController.Instance.transform;
+        SetPlayerCameraFollow();
     }
+
+    public void SetPlayerCameraFollow() {
+		cinemaCam = FindAnyObjectByType<CinemachineCamera>();
+		cinemaCam.Follow = PlayerController.Instance.transform;
+	}
 }
