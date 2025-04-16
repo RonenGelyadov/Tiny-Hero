@@ -12,8 +12,10 @@ public class PlayerController : Singleton<PlayerController>
     private Rigidbody2D rb;
     private Animator animator;
 
-    private float rayLength = 0.35f;
+    private float rayLength = 0.5f;
     bool isGrounded;
+
+    const string GROUND_LAYER_TEXT = "Ground";
     
     protected override void Awake() {
         base.Awake();
@@ -83,7 +85,7 @@ public class PlayerController : Singleton<PlayerController>
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, rayLength, groundLayer);
 
         if (hit) {
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer(GROUND_LAYER_TEXT)) {
                 isGrounded = true;
             } else {
                 isGrounded = false;
@@ -92,5 +94,4 @@ public class PlayerController : Singleton<PlayerController>
             isGrounded = false;
         }
     }
-
 }
