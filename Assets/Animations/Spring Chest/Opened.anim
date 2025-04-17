@@ -38,6 +38,8 @@ AnimationClip:
       value: {fileID: 21300000, guid: 57f8c3020b4ce1947963f4dd77c079f6, type: 3}
     - time: 0.53333336
       value: {fileID: 21300000, guid: 649e3156b9c3c78469eb7b35bc618638, type: 3}
+    - time: 0.6
+      value: {fileID: 21300000, guid: 649e3156b9c3c78469eb7b35bc618638, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -69,12 +71,13 @@ AnimationClip:
     - {fileID: 21300000, guid: f5457a7b3d374b34e9aef2c50f98c1e6, type: 3}
     - {fileID: 21300000, guid: 57f8c3020b4ce1947963f4dd77c079f6, type: 3}
     - {fileID: 21300000, guid: 649e3156b9c3c78469eb7b35bc618638, type: 3}
+    - {fileID: 21300000, guid: 649e3156b9c3c78469eb7b35bc618638, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.6
+    m_StopTime: 0.6666667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -93,4 +96,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.6
+    functionName: EmptyingChestAnimEvent
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

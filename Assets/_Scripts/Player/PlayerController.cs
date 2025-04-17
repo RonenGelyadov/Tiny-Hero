@@ -12,7 +12,7 @@ public class PlayerController : Singleton<PlayerController>
     private Rigidbody2D rb;
     private Animator animator;
 
-    private float rayLength = 0.5f;
+    private float rayLength = 0.6f;
     bool isGrounded;
 
     const string GROUND_LAYER_TEXT = "Ground";
