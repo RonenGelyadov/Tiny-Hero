@@ -30,12 +30,6 @@ public class Chest : MonoBehaviour
 
     private IEnumerator EmptyingChestAnimEvent() {  
         int dropAmount = Random.Range(minDropAmount, maxDropAmount);
-
-        if (dropAmount > 4) {
-            timeBetweenDrops = 0.1f;
-        } else {
-            timeBetweenDrops = 2f;
-        }
         
         for (int i = 0; i < dropAmount; i++) {
             GameObject newCoin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
