@@ -1,8 +1,7 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : Singleton<PlayerController> {
-    
+
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float jumpForce = 3f;
     [SerializeField] private LayerMask groundLayer;
@@ -11,6 +10,7 @@ public class PlayerController : Singleton<PlayerController> {
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
     private Animator animator;
+    private Knockback knockback;
 
     private float rayLength = 0.6f;
     bool isGrounded;
@@ -24,6 +24,7 @@ public class PlayerController : Singleton<PlayerController> {
         playerControls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        knockback = GetComponent<Knockback>();
     }
 
     private void OnEnable() {
@@ -40,6 +41,9 @@ public class PlayerController : Singleton<PlayerController> {
     }
 
     private void Update() {
+
+        if (knockback.GetKnockback) { return; }
+
         PlayerInput();
         ChangeFaceDirection();
         HandleAnimations();
@@ -47,6 +51,9 @@ public class PlayerController : Singleton<PlayerController> {
     }
 
     private void FixedUpdate() {
+
+        if (knockback.GetKnockback) { return; }
+
         Move();
     }
 
