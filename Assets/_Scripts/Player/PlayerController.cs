@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : Singleton<PlayerController>
-{
+public class PlayerController : Singleton<PlayerController> {
+    
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float jumpForce = 3f;
     [SerializeField] private LayerMask groundLayer;
@@ -16,10 +16,10 @@ public class PlayerController : Singleton<PlayerController>
     bool isGrounded;
 
     const string GROUND_LAYER_TEXT = "Ground";
-    
+
     protected override void Awake() {
         base.Awake();
-        
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerControls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
@@ -63,7 +63,8 @@ public class PlayerController : Singleton<PlayerController>
     private void ChangeFaceDirection() {
         if (moveDir < 0) {
             spriteRenderer.flipX = true;
-        } else if (moveDir > 0) {
+        }
+        else if (moveDir > 0) {
             spriteRenderer.flipX = false;
         }
     }
@@ -87,10 +88,12 @@ public class PlayerController : Singleton<PlayerController>
         if (hit) {
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer(GROUND_LAYER_TEXT)) {
                 isGrounded = true;
-            } else {
+            }
+            else {
                 isGrounded = false;
             }
-        } else {
+        }
+        else {
             isGrounded = false;
         }
     }
