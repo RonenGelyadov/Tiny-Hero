@@ -1,9 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerHealth : Singleton<PlayerHealth>
-{
-	[SerializeField] private int maxHealth = 3;
+public class PlayerHealth : Singleton<PlayerHealth> {
+    [SerializeField] private int maxHealth = 3;
     [SerializeField] private float damageCoolDown = 1f;
 
     private int currentHealth;

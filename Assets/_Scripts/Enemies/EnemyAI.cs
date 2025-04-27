@@ -1,17 +1,16 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class EnemyAI : MonoBehaviour
-{
+public class EnemyAI : MonoBehaviour {
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float patrolRange = 10f;
-    
+
     private float offsetXLeft, offsetXRight;
     private float offsetYUp, offsetYDown;
     private Vector3 moveDir;
 
-	private Rigidbody2D rb;
-    
+    private Rigidbody2D rb;
+
     private enum PatrolMode {
         Horizontal,
         Vertical
@@ -28,7 +27,8 @@ public class EnemyAI : MonoBehaviour
 
         if (currentPatrolMode == PatrolMode.Horizontal) {
             moveDir = Vector3.left;
-        } else if (currentPatrolMode == PatrolMode.Vertical) {
+        }
+        else if (currentPatrolMode == PatrolMode.Vertical) {
             moveDir = Vector3.down;
         }
     }
@@ -37,10 +37,10 @@ public class EnemyAI : MonoBehaviour
         PatrolModeControl();
     }
 
-    private void PatrolModeControl() {     
+    private void PatrolModeControl() {
 
         switch (currentPatrolMode) {
-            case PatrolMode.Horizontal: 
+            case PatrolMode.Horizontal:
                 Patrol(true);
                 break;
 
@@ -49,24 +49,27 @@ public class EnemyAI : MonoBehaviour
                 break;
 
             default:
-                break;            
+                break;
         }
     }
 
     private void Patrol(bool isHorizontal) {
         rb.MovePosition(transform.position + (moveDir * moveSpeed * Time.fixedDeltaTime));
-        
+
         if (isHorizontal) {
             if (transform.position.x < offsetXLeft) {
                 moveDir = Vector3.right;
-            } else if (transform.position.x > offsetXRight) {
+            }
+            else if (transform.position.x > offsetXRight) {
                 moveDir = Vector3.left;
             }
 
-        } else {
+        }
+        else {
             if (transform.position.y < offsetYDown) {
                 moveDir = Vector3.up;
-            } else if (transform.position.y > offsetYUp) {
+            }
+            else if (transform.position.y > offsetYUp) {
                 moveDir = Vector3.down;
             }
         }
@@ -82,6 +85,8 @@ public class EnemyAI : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         PlayerHealth playerHealth = other.gameObject.GetComponent<PlayerHealth>();
+        Knockback knockback = other.gameObject.GetComponent<Knockback>();
         playerHealth?.TakeDamage(1);
+        knockback?.KnockBack(transform.position);
     }
 }
