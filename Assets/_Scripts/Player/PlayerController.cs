@@ -4,7 +4,9 @@ public class PlayerController : Singleton<PlayerController> {
 
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float jumpForce = 3f;
+    [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Transform groundCheck;
 
     private PlayerControls playerControls;
     private float moveDir;
@@ -12,11 +14,7 @@ public class PlayerController : Singleton<PlayerController> {
     private Rigidbody2D rb;
     private Animator animator;
     private Knockback knockback;
-
-    private float rayLength = 0.6f;
-    bool isGrounded;
-
-    const string GROUND_LAYER_TEXT = "Ground";
+    private bool isGrounded;
 
     protected override void Awake() {
         base.Awake();
@@ -38,7 +36,9 @@ public class PlayerController : Singleton<PlayerController> {
 
     private void Start() {
         playerControls.Movement.Jump.performed += _ => Jump();
+        groundCheck = transform.GetChild(0);
         isGrounded = false;
+        EconomyManager.Instance.UpdateCoins();
     }
 
     private void Update() {
@@ -92,15 +92,11 @@ public class PlayerController : Singleton<PlayerController> {
     }
 
     private void CheckIfGrounded() {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, rayLength, groundLayer);
+
+        Collider2D hit = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
         if (hit) {
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer(GROUND_LAYER_TEXT)) {
-                isGrounded = true;
-            }
-            else {
-                isGrounded = false;
-            }
+            isGrounded = true;
         }
         else {
             isGrounded = false;

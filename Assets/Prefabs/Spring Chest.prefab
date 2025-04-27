@@ -199,6 +199,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinPrefab: {fileID: 3495504016797811662, guid: 172c5fd83469f4c4b87d6e8a1e6a4f7f, type: 3}
-  minDropAmount: 1
+  minDropAmount: 3
   maxDropAmount: 7
-  timeBetweenDrops: 0.8
+  timeBetweenDrops: 0.2

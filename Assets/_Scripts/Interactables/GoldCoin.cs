@@ -4,13 +4,17 @@ using UnityEngine;
 public class GoldCoin : MonoBehaviour {
 
     [SerializeField] private float travelHeight = 2f;
-    [SerializeField] private float travelTime = 0.5f;
+    [SerializeField] private float travelTime = 0.2f;
     [SerializeField] private AnimationCurve animCurve;
+
+    private bool isFinishedTraveling;
 
     public IEnumerator RandomPopUp() {
 
+        isFinishedTraveling = false;
+
         Vector2 startPoint = transform.position;
-        Vector2 randomPos = new Vector2(Random.Range(-2f, 2f), 0);
+        Vector2 randomPos = new Vector2(Random.Range(-3f, 3f), 0);
         Vector2 endPoint = startPoint + randomPos;
 
         float newTime = 0f;
@@ -22,14 +26,18 @@ public class GoldCoin : MonoBehaviour {
             float heightT = animCurve.Evaluate(linearT);
             float height = Mathf.Lerp(0f, travelHeight, heightT);
 
-            transform.position = Vector2.Lerp(startPoint, endPoint, linearT) + new Vector2(0f, height);
+            Vector2 vector2 = Vector2.Lerp(startPoint, endPoint, linearT) + new Vector2(0f, height);
+            transform.position = vector2;
 
             yield return null;
         }
+
+        isFinishedTraveling = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.GetComponent<PlayerController>()) {
+        if (other.gameObject.GetComponent<PlayerController>() && isFinishedTraveling) {
+            EconomyManager.Instance.UpdateCoins();
             Destroy(gameObject);
         }
     }
