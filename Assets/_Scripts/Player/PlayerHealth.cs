@@ -8,6 +8,13 @@ public class PlayerHealth : Singleton<PlayerHealth> {
     private int currentHealth;
     private bool canTakeDamage = true;
 
+    private Flash flash;
+
+    protected override void Awake() {
+        base.Awake();
+        flash = GetComponent<Flash>();
+    }
+
     private void Start() {
         currentHealth = maxHealth;
     }
@@ -19,6 +26,7 @@ public class PlayerHealth : Singleton<PlayerHealth> {
             currentHealth -= damage;
             Debug.Log("Health: " + currentHealth);
             StartCoroutine(TakingDamageRoutine());
+            StartCoroutine(flash.FlashRoutine());
         }
     }
 

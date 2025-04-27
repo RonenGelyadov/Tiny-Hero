@@ -5,6 +5,7 @@ public class PlayerController : Singleton<PlayerController> {
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float jumpForce = 3f;
     [SerializeField] private LayerMask groundLayer;
+
     private PlayerControls playerControls;
     private float moveDir;
     private SpriteRenderer spriteRenderer;
@@ -42,12 +43,13 @@ public class PlayerController : Singleton<PlayerController> {
 
     private void Update() {
 
+        HandleAnimations();
+        CheckIfGrounded();
+
         if (knockback.GetKnockback) { return; }
 
         PlayerInput();
         ChangeFaceDirection();
-        HandleAnimations();
-        CheckIfGrounded();
     }
 
     private void FixedUpdate() {

@@ -1,12 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
-public class Chest : MonoBehaviour
-{
+public class Chest : MonoBehaviour {
     [SerializeField] private GameObject coinPrefab;
-    [SerializeField] private int minDropAmount = 1;
+    [SerializeField] private int minDropAmount = 3;
     [SerializeField] private int maxDropAmount = 7;
-    [SerializeField] private float timeBetweenDrops = 0.8f;
+    [SerializeField] private float timeBetweenDrops = 0.1f;
 
     private bool isOpened;
 
@@ -21,20 +20,20 @@ public class Chest : MonoBehaviour
         isOpened = false;
     }
 
-	private void OnTriggerEnter2D(Collider2D other) {
+    private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.GetComponent<PlayerController>() && !isOpened) {
             isOpened = true;
             animator.SetTrigger(OPEN_HASH);
         }
     }
 
-    private IEnumerator EmptyingChestAnimEvent() {  
+    private IEnumerator EmptyingChestAnimEvent() {
         int dropAmount = Random.Range(minDropAmount, maxDropAmount);
-        
+
         for (int i = 0; i < dropAmount; i++) {
             GameObject newCoin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
-            newCoin.GetComponent<GoldCoin>().RandomPopUp();
+            StartCoroutine(newCoin.GetComponent<GoldCoin>().RandomPopUp());
             yield return new WaitForSeconds(timeBetweenDrops);
-        }   
+        }
     }
 }
