@@ -18,4 +18,13 @@ public class EconomyManager : Singleton<EconomyManager> {
 
         coinCountText.text = coinCount.ToString("D3");
     }
+
+    public void StartCoinsCounter() {
+
+        if (coinCountText == null) {
+            coinCountText = GameObject.Find(COIN_AMOUNT_TEXT).GetComponent<TMP_Text>();
+        }
+
+        coinCountText.text = coinCount.ToString("D3");
+    }
 }

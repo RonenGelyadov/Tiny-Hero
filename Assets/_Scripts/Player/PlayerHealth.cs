@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class PlayerHealth : Singleton<PlayerHealth> {
     [SerializeField] private int maxHealth = 3;
@@ -10,6 +11,9 @@ public class PlayerHealth : Singleton<PlayerHealth> {
 
     private Flash flash;
 
+    private const string HEALTH_AMOUNT_TEXT = "Health Amount Text";
+    private TMP_Text healthAmountText;
+
     protected override void Awake() {
         base.Awake();
         flash = GetComponent<Flash>();
@@ -17,6 +21,7 @@ public class PlayerHealth : Singleton<PlayerHealth> {
 
     private void Start() {
         currentHealth = maxHealth;
+        UpdateHealthText();
     }
 
     public void TakeDamage(int damage) {
@@ -24,7 +29,7 @@ public class PlayerHealth : Singleton<PlayerHealth> {
 
             canTakeDamage = false;
             currentHealth -= damage;
-            Debug.Log("Health: " + currentHealth);
+            UpdateHealthText();
             StartCoroutine(TakingDamageRoutine());
             StartCoroutine(flash.FlashRoutine());
         }
@@ -33,5 +38,14 @@ public class PlayerHealth : Singleton<PlayerHealth> {
     private IEnumerator TakingDamageRoutine() {
         yield return new WaitForSeconds(damageCoolDown);
         canTakeDamage = true;
+    }
+
+    private void UpdateHealthText() {
+
+        if (healthAmountText == null) {
+            healthAmountText = GameObject.Find(HEALTH_AMOUNT_TEXT).GetComponent<TMP_Text>();
+        }
+
+        healthAmountText.text = currentHealth.ToString();
     }
 }

@@ -38,7 +38,7 @@ public class PlayerController : Singleton<PlayerController> {
         playerControls.Movement.Jump.performed += _ => Jump();
         groundCheck = transform.GetChild(0);
         isGrounded = false;
-        EconomyManager.Instance.UpdateCoins();
+        EconomyManager.Instance.StartCoinsCounter();
     }
 
     private void Update() {

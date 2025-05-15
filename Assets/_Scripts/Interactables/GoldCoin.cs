@@ -6,6 +6,9 @@ public class GoldCoin : MonoBehaviour {
     [SerializeField] private float travelHeight = 2f;
     [SerializeField] private float travelTime = 0.2f;
     [SerializeField] private AnimationCurve animCurve;
+    [SerializeField] private GameObject coinDestroyVFX;
+
+    private readonly float finalHeight = -0.5f;
 
     private bool isFinishedTraveling;
 
@@ -14,7 +17,7 @@ public class GoldCoin : MonoBehaviour {
         isFinishedTraveling = false;
 
         Vector2 startPoint = transform.position;
-        Vector2 randomPos = new Vector2(Random.Range(-3f, 3f), 0);
+        Vector2 randomPos = new Vector2(Random.Range(-3f, 3f), finalHeight);
         Vector2 endPoint = startPoint + randomPos;
 
         float newTime = 0f;
@@ -38,6 +41,7 @@ public class GoldCoin : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.GetComponent<PlayerController>() && isFinishedTraveling) {
             EconomyManager.Instance.UpdateCoins();
+            Instantiate(coinDestroyVFX, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

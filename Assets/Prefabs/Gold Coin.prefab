@@ -167,8 +167,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.0041656494
-      value: 0.09811401
+      time: 0.000061035156
+      value: -0.00048828125
       inSlope: 2
       outSlope: 2
       tangentMode: 0
@@ -176,8 +176,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.98968506
-      value: -0.15484439
+      time: 1.0019906
+      value: 0.00052060187
       inSlope: -1.9622355
       outSlope: -1.9622355
       tangentMode: 0
@@ -187,3 +187,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  coinDestroyVFX: {fileID: 390395448805712616, guid: 4eef51739a817f54eb3cbe1bfeec17c7, type: 3}
