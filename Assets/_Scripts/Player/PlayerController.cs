@@ -60,9 +60,9 @@ public class PlayerController : Singleton<PlayerController> {
     }
 
     void PlayerInput() {
-        moveDir = playerControls.Movement.Move.ReadValue<Vector2>().x;
+        //moveDir = playerControls.Movement.Move.ReadValue<Vector2>().x;
 
-        animator.SetFloat("MoveX", moveDir);
+        //animator.SetFloat("MoveX", moveDir);
     }
 
     private void Move() {
@@ -78,7 +78,7 @@ public class PlayerController : Singleton<PlayerController> {
         }
     }
 
-    private void Jump() {
+    public void Jump() {
         if (isGrounded) {
             isGrounded = false;
             Vector2 jumpDir = Vector2.up * jumpForce;
@@ -102,4 +102,13 @@ public class PlayerController : Singleton<PlayerController> {
             isGrounded = false;
         }
     }
+
+    #region UI_Buttons
+
+    public void UIMove(int moveDir) {
+        this.moveDir = moveDir;
+        animator.SetFloat("MoveX", this.moveDir);
+    }
+
+    #endregion
 }

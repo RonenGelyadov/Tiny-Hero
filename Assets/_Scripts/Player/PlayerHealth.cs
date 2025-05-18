@@ -3,8 +3,11 @@ using UnityEngine;
 using TMPro;
 
 public class PlayerHealth : Singleton<PlayerHealth> {
+
     [SerializeField] private int maxHealth = 3;
     [SerializeField] private float damageCoolDown = 1f;
+
+    [SerializeField] private GameObject hitVFX;
 
     private int currentHealth;
     private bool canTakeDamage = true;
@@ -29,6 +32,7 @@ public class PlayerHealth : Singleton<PlayerHealth> {
 
             canTakeDamage = false;
             currentHealth -= damage;
+            Instantiate(hitVFX, transform.position, Quaternion.identity);
             UpdateHealthText();
             StartCoroutine(TakingDamageRoutine());
             StartCoroutine(flash.FlashRoutine());

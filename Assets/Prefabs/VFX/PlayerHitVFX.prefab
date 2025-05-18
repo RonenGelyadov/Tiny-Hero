@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5852198089114593036}
   - component: {fileID: -5909347855596713181}
   m_Layer: 0
-  m_Name: GoldCoinVFX
+  m_Name: PlayerHitVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -224,7 +224,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.9921569, g: 0.7960785, b: 0.19215688, a: 1}
+      maxColor: {r: 1, g: 0.182046, b: 0.15566039, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -2757,7 +2757,7 @@ ParticleSystem:
     strength:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 6.22
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2914,7 +2914,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     separateAxes: 0
-    frequency: 0.5
+    frequency: 3.05
     damping: 1
     octaves: 1
     octaveMultiplier: 0.5
@@ -2923,7 +2923,7 @@ ParticleSystem:
     scrollSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 2.37
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4892,7 +4892,7 @@ ParticleSystemRenderer:
   m_VertexStreams: 00010304
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
