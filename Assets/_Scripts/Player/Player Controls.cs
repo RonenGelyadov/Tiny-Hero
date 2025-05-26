@@ -72,8 +72,7 @@ using UnityEngine.InputSystem.Utilities;
 /// }
 /// </code>
 /// </example>
-public partial class @PlayerControls: IInputActionCollection2, IDisposable
-{
+public partial class @PlayerControls : IInputActionCollection2, IDisposable {
     /// <summary>
     /// Provides access to the underlying asset instance.
     /// </summary>
@@ -82,8 +81,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     /// <summary>
     /// Constructs a new instance.
     /// </summary>
-    public @PlayerControls()
-    {
+    public @PlayerControls() {
         asset = InputActionAsset.FromJson(@"{
     ""name"": ""Player Controls"",
     ""maps"": [
@@ -166,29 +164,25 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Movement_Jump = m_Movement.FindAction("Jump", throwIfNotFound: true);
     }
 
-    ~@PlayerControls()
-    {
+    ~@PlayerControls() {
         UnityEngine.Debug.Assert(!m_Movement.enabled, "This will cause a leak and performance issues, PlayerControls.Movement.Disable() has not been called.");
     }
 
     /// <summary>
     /// Destroys this asset and all associated <see cref="InputAction"/> instances.
     /// </summary>
-    public void Dispose()
-    {
+    public void Dispose() {
         UnityEngine.Object.Destroy(asset);
     }
 
     /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.bindingMask" />
-    public InputBinding? bindingMask
-    {
+    public InputBinding? bindingMask {
         get => asset.bindingMask;
         set => asset.bindingMask = value;
     }
 
     /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.devices" />
-    public ReadOnlyArray<InputDevice>? devices
-    {
+    public ReadOnlyArray<InputDevice>? devices {
         get => asset.devices;
         set => asset.devices = value;
     }
@@ -197,32 +191,27 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
 
     /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.Contains(InputAction)" />
-    public bool Contains(InputAction action)
-    {
+    public bool Contains(InputAction action) {
         return asset.Contains(action);
     }
 
     /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.GetEnumerator()" />
-    public IEnumerator<InputAction> GetEnumerator()
-    {
+    public IEnumerator<InputAction> GetEnumerator() {
         return asset.GetEnumerator();
     }
 
     /// <inheritdoc cref="IEnumerable.GetEnumerator()" />
-    IEnumerator IEnumerable.GetEnumerator()
-    {
+    IEnumerator IEnumerable.GetEnumerator() {
         return GetEnumerator();
     }
 
     /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.Enable()" />
-    public void Enable()
-    {
+    public void Enable() {
         asset.Enable();
     }
 
     /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.Disable()" />
-    public void Disable()
-    {
+    public void Disable() {
         asset.Disable();
     }
 
@@ -230,14 +219,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public IEnumerable<InputBinding> bindings => asset.bindings;
 
     /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.FindAction(string, bool)" />
-    public InputAction FindAction(string actionNameOrId, bool throwIfNotFound = false)
-    {
+    public InputAction FindAction(string actionNameOrId, bool throwIfNotFound = false) {
         return asset.FindAction(actionNameOrId, throwIfNotFound);
     }
 
     /// <inheritdoc cref="UnityEngine.InputSystem.InputActionAsset.FindBinding(InputBinding, out InputAction)" />
-    public int FindBinding(InputBinding bindingMask, out InputAction action)
-    {
+    public int FindBinding(InputBinding bindingMask, out InputAction action) {
         return asset.FindBinding(bindingMask, out action);
     }
 
@@ -249,8 +236,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     /// <summary>
     /// Provides access to input actions defined in input action map "Movement".
     /// </summary>
-    public struct MovementActions
-    {
+    public struct MovementActions {
         private @PlayerControls m_Wrapper;
 
         /// <summary>
@@ -287,8 +273,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
         /// </remarks>
         /// <seealso cref="MovementActions" />
-        public void AddCallbacks(IMovementActions instance)
-        {
+        public void AddCallbacks(IMovementActions instance) {
             if (instance == null || m_Wrapper.m_MovementActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_MovementActionsCallbackInterfaces.Add(instance);
             @Move.started += instance.OnMove;
@@ -306,8 +291,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
         /// </remarks>
         /// <seealso cref="MovementActions" />
-        private void UnregisterCallbacks(IMovementActions instance)
-        {
+        private void UnregisterCallbacks(IMovementActions instance) {
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
@@ -320,8 +304,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="MovementActions.UnregisterCallbacks(IMovementActions)" />.
         /// </summary>
         /// <seealso cref="MovementActions.UnregisterCallbacks(IMovementActions)" />
-        public void RemoveCallbacks(IMovementActions instance)
-        {
+        public void RemoveCallbacks(IMovementActions instance) {
             if (m_Wrapper.m_MovementActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
@@ -335,8 +318,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="MovementActions.AddCallbacks(IMovementActions)" />
         /// <seealso cref="MovementActions.RemoveCallbacks(IMovementActions)" />
         /// <seealso cref="MovementActions.UnregisterCallbacks(IMovementActions)" />
-        public void SetCallbacks(IMovementActions instance)
-        {
+        public void SetCallbacks(IMovementActions instance) {
             foreach (var item in m_Wrapper.m_MovementActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
             m_Wrapper.m_MovementActionsCallbackInterfaces.Clear();
@@ -352,8 +334,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     /// </summary>
     /// <seealso cref="MovementActions.AddCallbacks(IMovementActions)" />
     /// <seealso cref="MovementActions.RemoveCallbacks(IMovementActions)" />
-    public interface IMovementActions
-    {
+    public interface IMovementActions {
         /// <summary>
         /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

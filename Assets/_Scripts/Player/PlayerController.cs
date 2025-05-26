@@ -60,9 +60,9 @@ public class PlayerController : Singleton<PlayerController> {
     }
 
     void PlayerInput() {
-        //moveDir = playerControls.Movement.Move.ReadValue<Vector2>().x;
+        moveDir = playerControls.Movement.Move.ReadValue<Vector2>().x;
 
-        //animator.SetFloat("MoveX", moveDir);
+        animator.SetFloat("MoveX", moveDir);
     }
 
     private void Move() {
